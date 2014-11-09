@@ -86,7 +86,6 @@ uint32_t uart_read(uint8_t* data, uint32_t len)
 	return tlen;
 }
 
-
 uint32_t uart_read_line(char* str)
 {
 	uint32_t tlen = 0;
