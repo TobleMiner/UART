@@ -23,14 +23,14 @@ THE SOFTWARE.
 #include <avr/interrupt.h>
 
 #if UART_ENABLE_RX == TRUE
-volatile uint8_t uart_rx_ring[UART_BUFF_LEN_RX]; //Init buffer for uart-rx
+volatile uint8_t uart_rx_ring[UART_BUFF_LEN_RX] = {0}; //Init buffer for uart-rx
 volatile uint8_t *uart_rx_curpos_ring = uart_rx_ring;
 volatile uint8_t *uart_rx_targpos_ring = uart_rx_ring;
 volatile uint32_t uart_rx_data_len = 0;
 #endif
 
 #if UART_ENABLE_TX == TRUE
-volatile uint8_t uart_tx_ring[UART_BUFF_LEN_TX]; //Init buffer for uart-tx
+volatile uint8_t uart_tx_ring[UART_BUFF_LEN_TX] = {0}; //Init buffer for uart-tx
 volatile uint8_t *uart_tx_curpos_ring = uart_tx_ring;
 volatile uint8_t *uart_tx_targpos_ring = uart_tx_ring;
 #endif
@@ -43,9 +43,7 @@ void uart_init(void)
 
 void uart_set_baudrate(uint32_t baudrate)
 {
-	uint16_t ubrr = (((F_CPU / (baudrate * 16.0)) + .5) - 1);
-	UBRR0H = (ubrr < 8) & 0xFF;
-	UBRR0L = ubrr & 0xFF;
+	UBRR0 = (((F_CPU / (baudrate * 16.0)) + .5) - 1);
 }
 
 #if UART_ENABLE_RX == TRUE
