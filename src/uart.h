@@ -35,7 +35,8 @@ THE SOFTWARE.
 	
 	//Libs
 	#include <stdint.h>
-		
+	#include <avr/interrupt.h>
+			
 	//Functions
 	extern void		uart_init(void);
 	extern void		uart_set_baudrate(uint32_t baudrate);
@@ -48,6 +49,7 @@ THE SOFTWARE.
 	extern void		uart_write_async(char* str);
 	extern void		uart_irq_tx(void);
 	extern void		uart_irq_udre(void);
+	extern uint32_t	uart_get_tx_buff_fill();
 	#endif
 	
 	#if UART_ENABLE_RX == TRUE
